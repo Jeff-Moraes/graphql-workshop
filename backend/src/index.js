@@ -2,6 +2,8 @@ import { ApolloServer } from "apollo-server";
 import { schema } from "./graphql/schema";
 import mongoose from "mongoose";
 
+import { PetModel } from "../src/models";
+
 // ----- Connect to Mongo DB
 
 if (!process.env.MONGODB_URL) {
@@ -10,6 +12,14 @@ if (!process.env.MONGODB_URL) {
 
 const db = mongoose.connect(process.env.MONGODB_URL).then(
   () => {
+    PetModel.create({
+      name: "Walter",
+      type: "DOG",
+      adopted: true,
+      picture: "url",
+      breed: "mix",
+      height: 30,
+    });
     console.log("Now connected to Mongo DB!");
   },
   (error) => {
